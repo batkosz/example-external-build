@@ -22,6 +22,11 @@ pipeline {
 
         }
         stage('Build') {
+            when {
+                not {
+                changelog '.*^\\[ci skip\\] .+$'
+                }
+            }
             steps {
             // Run Maven on a Unix agent.
             sh "mvn -Dmaven.test.failure.ignore=true clean package"
