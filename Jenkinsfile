@@ -38,7 +38,7 @@ pipeline {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
+                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml'
                     archiveArtifacts 'target/*.jar'
                     script {
                         slackSend(channel: "jenkins-BS", message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
